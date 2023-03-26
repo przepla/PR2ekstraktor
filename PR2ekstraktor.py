@@ -2,6 +2,7 @@ import requests
 import re
 import argparse
 import os
+from tqdm import tqdm
 
 parser = argparse.ArgumentParser(description='Download MP3 files from one or more URLs.')
 parser.add_argument('urls', metavar='URL', nargs='+', help='the URL(s) to download from')
@@ -20,11 +21,16 @@ for url in args.urls:
             if mp3_url_match:
                 mp3_url = "http:" + mp3_url_match.group(0)
                 print("Downloading MP3 from URL:", mp3_url)
-                response = requests.get(mp3_url)
+                response = requests.get(mp3_url, stream=True)
                 if response.status_code == 200:
                     # Save the MP3 file with the title as its name
                     with open(f"{title}.mp3", "wb") as f:
-                        f.write(response.content)
+                        total_size_in_bytes = int(response.headers.get('content-length', 0))
+                        progress_bar = tqdm(total=total_size_in_bytes, unit='iB', unit_scale=True)
+                        for chunk in response.iter_content(chunk_size=1024):
+                            progress_bar.update(len(chunk))
+                            f.write(chunk)
+                        progress_bar.close()
                     print("MP3 downloaded successfully!")
                 else:
                     print("Failed to download MP3")
