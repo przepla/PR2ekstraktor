@@ -4,7 +4,7 @@ Polskie Radio Program 2 udostępnia wiele programów do słuchania bezpośrednio
 
 `PR2ekstraktor.py` to program w Pythonie, który automatycznie wyciąga ze strony audycji plik mp3 i pobiera go do bieżącego katalogu.
 
-Program napisany za pomocą ChatGPT ver. 3 -- [transkrypt sesji ChatGPT jest dostępny](ChatGPT-transcript.md)
+Program napisany za pomocą ChatGPT ^[wersja darmowa z 26 marca 2023 r.] -- [transkrypt sesji ChatGPT jest dostępny](ChatGPT-transcript.md)
 
 ## sposób użycia:
 ```
